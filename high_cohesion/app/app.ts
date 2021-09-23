@@ -1,6 +1,6 @@
-import PessoaMetodos from "./PessoaMetodos.js";
+import ListaDePessoas from "./ListaDePessoas.js";
 
-const individuo = new PessoaMetodos();
+const individuo = new ListaDePessoas();
 
 individuo.adicionarPessoa('aaa', 123);
 individuo.adicionarPessoa('bbb', 124);
