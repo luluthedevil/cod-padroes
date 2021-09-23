@@ -1,16 +1,15 @@
-import Pessoa from './Pessoa.js';
+import ListaDePessoas from './ListaDePessoas.js'
 
 class PessoaProxy{
 
+    private pessoa: ListaDePessoas = new ListaDePessoas();
     private senhaAdmin: number = 654123;
-    private listaPessoas: Array<Pessoa> = [];
 
-    adicionarPessoa(nome: string, cpf: number, senha: number){
-        if(this.senhaAdmin != senha || this.procurarCPF(cpf) != false){
+    adicionarPessoaProxy(nome: string, cpf: number, senha: number){
+        if(this.senhaAdmin != senha){
             return false;
         } else{
-            const pessoa = new Pessoa(nome, cpf);
-            this.listaPessoas.push(pessoa);
+            this.pessoa.adicionarPessoa(nome,cpf);
             return true;
         }
     }
@@ -18,7 +17,7 @@ class PessoaProxy{
         if(this.senhaAdmin != senha){
             return false;
         } else{
-            console.log(this.listaPessoas);
+            this.pessoa.listarPessoas();
             return true;
         }
     }
@@ -27,13 +26,7 @@ class PessoaProxy{
         if(this.senhaAdmin != senha){
             return false;
         } else{
-            const existe = this.procurarCPF(cpf);
-            if(existe === false){
-                console.log('Essa pessoa não existe');
-                return false;
-            } else{
-                console.log(this.listaPessoas[existe]);
-            }
+            this.pessoa.consultarPessoa(cpf);
         }
     }
 
@@ -41,26 +34,8 @@ class PessoaProxy{
         if(this.senhaAdmin != senha){
             return false;
         } else{
-            const existe = this.procurarCPF(cpf);
-            if(existe === false){
-                console.log('Essa pessoa não existe');
-                return false;
-            } else{
-                this.listaPessoas.splice(existe,1);
-                return true;
-            }
+            this.pessoa.deletarPessoa(cpf);
         }
-    }
-
-    procurarCPF(cpf: number){
-        var x = 0;
-        while(x < this.listaPessoas.length){
-            if(this.listaPessoas[x].getCPF() === cpf){
-                return x;
-            }
-            x++;
-        }
-        return false;
     }
 }
 
